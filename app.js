@@ -1,10 +1,6 @@
 //import puppeteer from 'puppeteer';
 const puppeteer = require("puppeteer");
 
-/*(async () => {
-    console.log("hola");
-})();*/
-
 (async () => {
     const browser = await puppeteer.launch({ headless: false});
     const page = await browser.newPage();
@@ -16,35 +12,29 @@ const puppeteer = require("puppeteer");
     
     // Type into search box
 
-    const books = ["devops", "docker", "jenkins"];
+    const books = ["devops", "dockers", "scrum"];
 
-    //books.forEach(async function(book) {
-        console.log('Libro a buscar "%s".', books[0]);
-        await page.type('input', books[0]);
-        //await page.keyboard.press("Enter");
+    for(let i =0;i<books.length;++i){
 
-        //click botón buscar  
-        const botonSelector = await page.waitForSelector("#botonBuscarHeader");
-        await botonSelector.click();
+            console.log('Libro a buscar "%s".', books[i]);
+            await page.type('input', books[i]);
+            await page.keyboard.press("Enter");
 
-        const element = await page.waitForSelector("div.producto > a");
-        await element.click(); 
-        //#Título del Libro
-        const valueSelector = await page.waitForSelector("p.tituloProducto");
-        const value = await valueSelector.evaluate(el => el.textContent);
-        console.log('Título Libro "%s".', value);
+            //click botón buscar  
+            /*const botonSelector = await page.waitForSelector("#botonBuscarHeader");
+            await botonSelector.click();*/
 
-        //#Precio del Libro
-        const precioSelector = await page.waitForSelector("p.precioAhora");
-        const precio = await precioSelector.evaluate(el => el.textContent);
-        console.log('Percio Libro "%s".', precio);
+            const element = await page.waitForSelector("div.producto > a");
+            await element.click(); 
+            //#Título del Libro
+            const valueSelector = await page.waitForSelector("p.tituloProducto");
+            const value = await valueSelector.evaluate(el => el.textContent);
+            console.log('Título Libro "%s".', value);
 
-    //});
-
-    
-
-
-
+            //#Precio del Libro
+            const precioSelector = await page.waitForSelector("p.precioAhora");
+            const precio = await precioSelector.evaluate(el => el.textContent);
+            console.log('Percio Libro "%s".', precio);
+    }
 
 })();
-
